@@ -837,3 +837,7 @@ tr td table thead tr:first-of-type th:first-of-type{
     margin-top: 15px;
    
 }
+
+#output > table > tr:nth-child(1) > td:nth-child(1) > select{
+    margin-top: 28px
+}
