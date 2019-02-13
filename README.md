@@ -1,7 +1,7 @@
 # Pivot-Table
 
 # Sobre
-Pivot Table é uma biblioteca javascript drag'n drop   
+Pivot Table é uma biblioteca javascript drag'n drop   a demo esta disponível em  https://jhersonharyson.github.io/pivot-table/
 
 # Créditos
 Gerador de Tabelas Dinâmicas desenvolvido por [nicolaskruchten](https://github.com/nicolaskruchten/pivottable)
