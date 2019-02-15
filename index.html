@@ -9182,7 +9182,7 @@
           setTimeout(function () {
             var data = $('textarea');
 
-           
+
 
             if (window.navigator.msSaveBlob) { // IE
               var blob = new Blob([data.text()], { type: "text/csv;charset=utf-8" });
@@ -9193,7 +9193,7 @@
               el.setAttribute("href", "data:text/csv;charset=utf-8," + encodeURIComponent(data.text()));
               el.click();
             }
-             
+
             $('.pvtRenderer').val("Table").change();
           }, 2000)
         });
@@ -9441,12 +9441,8 @@
   </script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-  <div align="center" style="height: 100% ">
+  <div align="center" style="height: 100%; margin-top: -100px ">
 
-    <!-- 
-    <div style="width: 100%; height:100%;" class="box-item" >
-
-        <h3 align="left">Colocar Titulo Aqui</h3> -->
 
     <div align="left" style="width: 100%; margin:0px;">
       <button style="text-align: center;  padding: 5px; margin-bottom: 5px;" id="backtohome"
@@ -9469,10 +9465,10 @@
     </div>
     <div id="output"
       style="margin-left: 0px;  overflow: auto; background-color: white; padding-top: 25px; display: flex; align-self: left;"
-      class="box-item"></div>
+      class="box-item">
+    </div>
   </div>
-  <!-- </div> -->
-
+  
 </body>
 
 </html>
