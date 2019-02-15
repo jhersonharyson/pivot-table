@@ -1394,7 +1394,7 @@
               $("<button>", {
                 type: "button",
                 class: "btn btn-info btn-sm",
-                style: "margin: 0px; margin-left: 5px;margin-right: 5px; box-shadow: 5px 3px 5px #888888; "
+                style: "margin: 0px; margin-left: 5px;margin-right: 5px; box-shadow: 1px 1px 1px #888888; "
               }).appendTo(controls).html(opts.localeStrings.selectAll).bind("click", function () {
                 valueList.find("input:visible:not(:checked)").prop("checked", true).toggleClass("changed");
                 return false;
@@ -1402,7 +1402,7 @@
               $("<button>", {
                 type: "button",
                 class: "btn btn-warning btn-sm",
-                style: "margin: 0px; margin-left: 5px;margin-right: 5px; box-shadow: 5px 3px 5px #888888; "
+                style: "margin: 0px; margin-left: 5px;margin-right: 5px; box-shadow: 1px 1px 1px #888888; "
               }).appendTo(controls).html(opts.localeStrings.selectNone).bind("click", function () {
                 valueList.find("input:visible:checked").prop("checked", false).toggleClass("changed");
                 return false;
@@ -1444,7 +1444,7 @@
             $("<button>", {
               type: "button",
               class: "btn btn-success btn-sm",
-              style: "margin: 0px; margin-left: 5px;margin-right: 5px; box-shadow: 5px 3px 5px #888888; "
+              style: "margin: 0px; margin-left: 5px;margin-right: 5px; box-shadow: 1px 1px 1px #888888; "
             }).text(opts.localeStrings.apply).appendTo(finalButtons).bind("click", function () {
               if (valueList.find(".changed").removeClass("changed").length) {
                 refresh();
@@ -1455,7 +1455,7 @@
           $("<button>", {
             type: "button",
             class: "btn btn-danger btn-sm",
-            style: "margin: 0px; margin-left: 5px;margin-right: 5px; box-shadow: 5px 3px 5px #888888; "
+            style: "margin: 0px; margin-left: 5px;margin-right: 5px; box-shadow: 1px 1px 1px #888888; "
           }).text(opts.localeStrings.cancel).appendTo(finalButtons).bind("click", function () {
             valueList.find(".changed:checked").removeClass("changed").prop("checked", false);
             valueList.find(".changed:not(:checked)").removeClass("changed").prop("checked", true);

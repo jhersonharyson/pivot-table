@@ -547,14 +547,16 @@ tr,th{
     border-top-right-radius:  50px 50px;
     }*/
     table.pvtTable tr th, table.pvtTable tr th {
-        /* border: 1px solid gray !important; */
+        border: 1px solid white;
         /* border-top: 3px solid #1e477b !important; */
-        box-shadow: 5px 10px 18px #888888;
+        /* box-shadow: 5px 10px 18px #888888; */
         background-color: #5e779294;
         /*border: 1px solid #CDCDCD;*/
         font-size: 8pt;
         padding: 5px;
-        color:  white;
+        color:  black;
+        background-color: #a2b0c0;
+        /* border: 1px solid black  */
     }
 
     table.pvtTable .pvtColLabel {text-align: center;}
@@ -563,6 +565,8 @@ tr,th{
     .pvtAxisContainer.pvtUnused.pvtUiCell.pvtHorizList.ui-sortable{
         background-color: #dddddd;
     }
+
+
     table tr td{
         margin: 50px;
     }
@@ -570,11 +574,12 @@ tr,th{
     table.pvtTable tr td {
         /* border: 1px solid gray !important; */
         border-top: 3px solid #1e477b !important;
-        box-shadow: 5px 10px 18px #888888;
+        /* box-shadow: 5px 10px 18px #888888; */
+        background: linear-gradient(to bottom, rgba(240,240,240,0) 0%,rgba(240,240,240,0.51) 7%,rgba(240,240,240,0.65) 9%,rgba(240,240,240,0.65) 100%); 
         color: #3D3D3D;
         padding: 5px;
         background-color: #FFF;
-        /*border: 1px solid #CDCDCD;*/
+        border: 2px solid white;
 
         text-align: right;
     }
@@ -584,15 +589,24 @@ tr,th{
     .pvtVals { text-align: center;}
     .pvtAggregator { margin-bottom: 5px ;}
 
-    .pvtAxisContainer, .pvtVals {
+    .pvtAxisContainer {
 
     /* border: 1px solid gray;
     border-top: 4px solid #1e477b; */
-    box-shadow: 5px 10px 18px #888888;
+    /* box-shadow: 5px 10px 18px #888888; */
+    background: linear-gradient(to bottom, rgba(240,240,240,0) 0%,rgba(240,240,240,0.51) 7%,rgba(240,240,240,0.65) 9%,rgba(240,240,240,0.65) 100%); 
     /* background: #EEE; */
     padding: 5px;
     min-width: 20px;
     min-height: 20px;
+}
+
+.pvtVals {
+    /* box-shadow: 5px 10px 18px #888888; */
+    padding: 5px;
+    min-width: 20px;
+    min-height: 20px;
+    background-color: black
 }
 .pvtAxisContainer li {
     padding: 8px 6px;
@@ -631,7 +645,8 @@ tr,th{
 .pvtFilterBox{
     border: 1px solid gray;
     border-top: 4px solid #1e477b;
-    box-shadow: 5px 10px 18px #888888;
+    /* box-shadow: 5px 10px 18px #888888; */
+    background: linear-gradient(to bottom, rgba(240,240,240,0) 0%,rgba(240,240,240,0.51) 7%,rgba(240,240,240,0.65) 9%,rgba(240,240,240,0.65) 100%); 
     z-index: 100;
     width: 300px;
     border: 1px solid gray;
@@ -656,7 +671,8 @@ div.pvtFilterBox{
 .pvtCheckContainer{
     border: 1px solid #ddddddc4;
     border-top: 4px solid #1e477b;
-    box-shadow: 5px 3px 5px #888888;
+    /* box-shadow: 5px 3px 5px #888888; */
+    /* background: linear-gradient(to bottom, rgba(240,240,240,0) 0%,rgba(240,240,240,0.51) 7%,rgba(240,240,240,0.65) 9%,rgba(240,240,240,0.65) 100%);  */
     text-align: left;
     overflow: auto;
     width: 100%;
@@ -697,7 +713,7 @@ a.pvtRowOrder, a.pvtColOrder {
 
 
 span.pvtAttr{
- box-shadow: 5px 3px 5px #888888;
+ box-shadow: 1px 1px 1px #888888;
 }
 .pvtAxisContainer.pvtUnused.pvtUiCell.pvtHorizList.ui-sortable{
     display: block;
@@ -749,9 +765,10 @@ td.pvtRendererArea{
 }
 
 .pvtVals.pvtUiCell{
-
+   
+  /* box-shadow: 5px 10px 18px #888888; */
     border: 0px solid black;
-    margin-top: -50px;
+    margin-top: -0px;
     text-align: left;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
@@ -830,7 +847,9 @@ tr td table thead tr:first-of-type th:first-of-type{
 
 #cabFun{
     padding-top: 7px;
-    box-shadow: -0px -7px 200px #888888;
+    /*box-shadow: -0px -7px 200px #888888;*/
+    /* background-color: rgba(240,240,240,0.65)  */
+    /* background: linear-gradient(to bottom, rgba(240,240,240,0) 0%,rgba(240,240,240,0.51) 7%,rgba(240,240,240,0.65) 9%,rgba(240,240,240,0.65) 100%);  */
 }
 
 #output > table > tr:nth-child(2) > td.pvtAxisContainer.pvtUnused.pvtUiCell.pvtVertList.ui-sortable{
@@ -840,4 +859,30 @@ tr td table thead tr:first-of-type th:first-of-type{
 
 #output > table > tr:nth-child(1) > td:nth-child(1) > select{
     margin-top: 28px
+}
+
+#output > table > tr:nth-child(1) > td.pvtVals.pvtUiCell{
+   
+    background: linear-gradient(to bottom, rgba(240,240,240,0) 0%,rgba(240,240,240,0.51) 7%,rgba(240,240,240,0.65) 9%,rgba(240,240,240,0.65) 100%); 
+        margin:      0px;
+        margin-top:  35px;
+        margin-left: 15px;
+        min-width:   200px;
+        padding-top: 13px;
+        height:      90px;
+        border-bottom-left-radius:  10px;
+        border-bottom-right-radius: 10px;
+       
+    
+}
+
+
+#output > table > tr:nth-child(2) > td.pvtAxisContainer.pvtUnused.pvtUiCell.pvtVertList.ui-sortable {
+    /* background: -moz-linear-gradient(top, rgba(0,0,0,0) 0%, rgba(0,0,0,0.51) 7%, rgba(0,0,0,0.65) 9%, rgba(0,0,0,0.65) 100%); FF3.6-15 */
+/* background: -webkit-linear-gradient(top, rgba(0,0,0,0) 0%,rgba(0,0,0,0.51) 7%,rgba(0,0,0,0.65) 9%,rgba(0,0,0,0.65) 100%); Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom, rgba(240,240,240,0) 0%,rgba(240,240,240,0.51) 7%,rgba(240,240,240,0.65) 9%,rgba(240,240,240,0.65) 100%); 
+/* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#a6000000',GradientType=0 ); /* IE6-9 */
+  
+
 }
