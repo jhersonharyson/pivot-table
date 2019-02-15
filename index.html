@@ -39,8 +39,6 @@
     * {
       font-family: Verdana;
     }
-
-    
   </style>
 
   <script type="text/javascript">
@@ -9144,11 +9142,11 @@
 
       $("#exportPdf").click(function (event) {
         var myWindow = window.open("", "", "width: 100%, height: 700px");
-        
+
         myWindow.document.write('<link rel="stylesheet" type="text/css" href="pivot.css" />');
         myWindow.document.write('<style>table.pvtTable tr td, table.pvtTable tr th, table.pvtTable tr th {border: 1px solid black;}</style>');
         myWindow.document.write($('.pvtRendererArea').html());
-        myWindow.document.onload = setTimeout(function(){myWindow.window.print()}, 2000)
+        myWindow.document.onload = setTimeout(function () { myWindow.window.print() }, 2000)
 
       })
 
@@ -9183,11 +9181,19 @@
         $.when($('.pvtRenderer').val("TSV Export").change()).done(function () {
           setTimeout(function () {
             var data = $('textarea');
-            var el = document.createElement('a');
-            el.setAttribute("download", "Tabela.csv");
-            el.setAttribute("href", "data:text/csv;charset=utf-8," + encodeURIComponent(data.text()));
-            el.click();
 
+           
+
+            if (window.navigator.msSaveBlob) { // IE
+              var blob = new Blob([data.text()], { type: "text/csv;charset=utf-8" });
+              window.navigator.msSaveOrOpenBlob(blob, 'tabela.csv')
+            } else {
+              var el = document.createElement('a');
+              el.setAttribute("download", "Tabela.csv");
+              el.setAttribute("href", "data:text/csv;charset=utf-8," + encodeURIComponent(data.text()));
+              el.click();
+            }
+             
             $('.pvtRenderer').val("Table").change();
           }, 2000)
         });
