@@ -9147,9 +9147,10 @@
       });
 
       $("#exportPdf").click(function (event) {
-        var myWindow = window.open("", "", function () { onload: alert('') });
+        var myWindow = window.open("", "", "width: 100%, height: 700px");
         
         myWindow.document.write('<link rel="stylesheet" type="text/css" href="pivot.css" />');
+        myWindow.document.write('<style>table.pvtTable tr td, table.pvtTable tr th, table.pvtTable tr th {border: 1px solid black;}</style>');
         myWindow.document.write($('.pvtRendererArea').html());
         myWindow.document.onload = setTimeout(function(){myWindow.window.print()}, 2000)
 
