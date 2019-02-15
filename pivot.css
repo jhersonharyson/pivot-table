@@ -606,7 +606,7 @@ tr,th{
     padding: 5px;
     min-width: 20px;
     min-height: 20px;
-    background-color: black
+    /* background-color: black */
 }
 .pvtAxisContainer li {
     padding: 8px 6px;
