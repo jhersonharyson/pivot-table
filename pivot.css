@@ -888,3 +888,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', e
 
 }
 
+
+.pvtVals .pvtUiCell{
+    background-color: #f5f5f5
+}
