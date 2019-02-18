@@ -44,15 +44,16 @@
     $(function () {
 
 
-      // console.table(window.location.search.substr(1))
+      var w = window.location.search.substr(1)
+      console.log(w)
 
       endOfTheRow = [];
       endOfTheCol = [];
       theGrandTotal = 0.0;
 
       //color=blue&resource=http://192.168.10.0:8080/api/json
-
-      var w = "testesplitsearch.html?resource=https://jsonplaceholder.typicode.com/todos&color=blue";
+      if (!w)
+        w = "testesplitsearch.html?resource=https://jsonplaceholder.typicode.com/todos&color=blue";
       var colorIndex = w.substr(1).indexOf('?color=');
       var sourceIndex = w.substr(1).indexOf('?resource=');
       var color, params;
@@ -9180,7 +9181,7 @@
           $.pivotUtilities.d3_renderers,
           $.pivotUtilities.export_renderers
         );
-        resource = "";
+        // resource = "";
         j = [
           {
             "userId": 1,
