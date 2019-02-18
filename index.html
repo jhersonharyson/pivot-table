@@ -23,7 +23,7 @@
     integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
   <!-- Dependencia BOOTSTRAP -->
 
- 
+  <link rel="stylesheet" type="text/css" href="pivot.css">
   <!-- Dependencia JQUERY USER INTERFACE API -->
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
 
@@ -31,8 +31,7 @@
   <script src="dist/export_renderers.js" type="text/javascript" charset="utf-8" async defer></script>
   <script src="dist/c3_renderers.js" type="text/javascript" charset="utf-8" async defer></script>
   <script src="dist/d3_renderers.js" type="text/javascript" charset="utf-8" async defer></script>
-  <!-- CSS -->
-  <link rel="stylesheet" type="text/css" href="pivot.css">
+
 
 
   <style>
@@ -9182,22 +9181,103 @@
           $.pivotUtilities.export_renderers
         );
         resource = "";
-        if (resource.length > 1) {
-          $.getJSON(resource).then(function (x) {
-            j = x
-            $("#output").pivotUI(j, {
-              renderers: renderers
-            });
-            render()
-          })
+        j = [
+          {
+            "userId": 1,
+            "id": 1,
+            "title": "delectus aut autem",
+            "completed": false,
+            "teste2": 2,
+            "teste3": 3,
+            "teste4": 4,
+            "teste5": 1,
+            "teste6": 1,
+            "teste7": 1
+
+          },
+          {
+            "userId": 1,
+            "id": 2,
+            "title": "quis ut nam facilis et officia qui",
+            "completed": false,
+            "teste2": 2,
+            "teste3": 3,
+            "teste4": 4,
+            "teste5": 1,
+            "teste6": 1,
+            "teste7": 1
+          },
+          {
+            "userId": 1,
+            "id": 3,
+            "title": "fugiat veniam minus",
+            "completed": false,
+            "teste2": 2,
+            "teste3": 3,
+            "teste4": 4,
+            "teste5": 1,
+            "teste6": 1,
+            "teste7": 1
+          },
+          {
+            "userId": 1,
+            "id": 4,
+            "title": "et porro tempora",
+            "completed": true,
+            "teste2": 2,
+            "teste3": 3,
+            "teste4": 4,
+            "teste5": 1,
+            "teste6": 1,
+            "teste7": 1
+          },
+          {
+            "userId": 1,
+            "id": 5,
+            "title": "laboriosam mollitia et enim quasi adipisci quia provident illum",
+            "completed": false,
+            "teste2": 2,
+            "teste3": 3,
+            "teste4": 4,
+            "teste5": 1,
+            "teste6": 1,
+            "teste7": 1
+          }];
+        if (resource) {
+          console.log(resource)
+          var ajax = new XMLHttpRequest();
+          ajax.open("GET", resource, true);
+          // Envia a requisição
+          ajax.send();
+          // Cria um evento para receber o retorno.
+          ajax.onreadystatechange = function () {
+            // Caso o state seja 4 e o http.status for 200, é porque a requisiçõe deu certo.
+            if (ajax.readyState == 4 && ajax.status == 200) {
+              var data = ajax.responseText;
+              // Retorno do Ajax
+              console.log(data);
+
+              j = JSON.parse(data)
+
+              $("#output").pivotUI(j, {
+                renderers: renderers
+              });
+              render()
+              // render()
+
+            }
+          }
 
         } else {
+
           $("#output").pivotUI(j, {
             renderers: renderers
           });
 
           render()
+
         }
+
 
 
       });
@@ -9529,10 +9609,12 @@
 
     </div>
     <div id="output"
-      style="margin-left: 0px;  overflow: auto; background-color: white; padding-top: 25px; display: flex; align-self: left;"
+      style="margin-left: 0px;  overflow: auto; background-color: white; padding-top: 25px; display: flex; align-self: left; "
       class="box-item">
     </div>
   </div>
+  <div id="css"></div>
+  <!-- CSS -->
 
 </body>
 
