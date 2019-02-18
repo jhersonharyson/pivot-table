@@ -34,7 +34,15 @@
   <!-- CSS -->
   <link rel="stylesheet" type="text/css" href="pivot.css">
   <script>
-    console.log(window.location.search.substr(1))
+    window.location.search = "color=blue&resource=http://192.168.10.0:8080/api/json"
+    params = {
+      string: window.location.search.substr(1),
+      color: window.location.search.substr("color=", window.location.search.indexOf("&") | window.location.search.length),
+      url: window.location.search.substr("source=", window.location.search.indexOf("&") | window.location.search.length),
+    }
+
+    // get render color
+    console.table(params)
   </script>
 
   <style>
@@ -45,11 +53,17 @@
 
   <script type="text/javascript">
     $(function () {
+
+
+      // console.table(window.location.search.substr(1))
+
       endOfTheRow = [];
       endOfTheCol = [];
       theGrandTotal = 0.0;
 
-      var j = [
+      //color=blue&resource=http://192.168.10.0:8080/api/json
+
+      let j = [
         {
           Empresa: 1,
           Unidade: 49,
@@ -9470,7 +9484,7 @@
       class="box-item">
     </div>
   </div>
-  
+
 </body>
 
 </html>
