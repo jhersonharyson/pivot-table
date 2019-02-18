@@ -34,15 +34,15 @@
   <!-- CSS -->
   <link rel="stylesheet" type="text/css" href="pivot.css">
   <script>
-    document.onload = function(){
-    window.location.search = "color=blue&resource=http://192.168.10.0:8080/api/json"
+   
+  
     params = {
       string: window.location.search.substr(1),
-      color: window.location.search.substr("color=", window.location.search.indexOf("&") | window.location.search.length),
-      url: window.location.search.substr("source=", window.location.search.indexOf("&") | window.location.search.length),
+      color: window.location.search.substr("color=", window.location.search.indexOf("&") < 0 ? window.location.search.length : window.location.search.indexOf("&")),
+      url: window.location.search.substr("source=", window.location.search.indexOf("&") < 0 ? window.location.search.length : window.location.search.indexOf("&")),
     }
-    console.log(params)
-  }
+    console.table(params)
+  
     // get render color
     
   </script>
