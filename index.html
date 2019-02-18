@@ -10,7 +10,7 @@
 
 <body>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.2/angular.min.js"></script> -->
+
   <!-- Dependencia D3 CHARTS -->
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
   <!-- Dependencia MOBILE TOUCH  -->
@@ -23,7 +23,7 @@
     integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
   <!-- Dependencia BOOTSTRAP -->
 
-  <!--<link rel="stylesheet" href="https://cdnjscloudflarecom/ajax/libs/pivottable/2210/pivotmincss" />-->
+ 
   <!-- Dependencia JQUERY USER INTERFACE API -->
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
 
@@ -33,19 +33,7 @@
   <script src="dist/d3_renderers.js" type="text/javascript" charset="utf-8" async defer></script>
   <!-- CSS -->
   <link rel="stylesheet" type="text/css" href="pivot.css">
-  <script>
-   
-  
-    params = {
-      string: window.location.search.substr(1),
-      color: window.location.search.substr("color=", window.location.search.indexOf("&") < 0 ? window.location.search.length : window.location.search.indexOf("&")),
-      url: window.location.search.substr("source=", window.location.search.indexOf("&") < 0 ? window.location.search.length : window.location.search.indexOf("&")),
-    }
-    console.table(params)
-  
-    // get render color
-    
-  </script>
+
 
   <style>
     * {
@@ -65,7 +53,47 @@
 
       //color=blue&resource=http://192.168.10.0:8080/api/json
 
-      let j = [
+      var w = "testesplitsearch.html?resource=https://jsonplaceholder.typicode.com/todos&color=blue";
+      var colorIndex = w.substr(1).indexOf('?color=');
+      var sourceIndex = w.substr(1).indexOf('?resource=');
+      var color, params;
+
+      params = {
+        url: w.substr(1),
+      }
+
+      if (colorIndex > 0) {
+        color = w.substring(w.substr(1).indexOf('?color=') + 1, w.substr(1).indexOf('&') > 0 ? w.substr(1).indexOf('&') + 1 : w.substr(1).length + 1).substring(1)
+        resource = w.substring(w.substr(1).indexOf('&') > 0 ? w.substr(1).indexOf('&') + 1 : w.substr(1).length + 1).substring(1)
+        params = {
+          url: params.url,
+          color: color,
+          resource: resource,
+        }
+      }
+
+      else if (sourceIndex > 0) {
+        resource = w.substring(w.substr(1).indexOf('?resource=') + 1, w.substr(1).indexOf('&') > 0 ? w.substr(1).indexOf('&') + 1 : w.substr(1).length + 1).substring(1)
+        color = w.substring(w.substr(1).indexOf('&') > 0 ? w.substr(1).indexOf('&') + 1 : w.substr(1).length + 1).substring(1)
+        params = {
+          url: params.url,
+          color: color,
+          resource: resource
+        }
+      } else {
+        alert('erro ao carregar os pametros')
+
+      }
+      color = color.split("=")[1]
+      resource = resource.split("=")[1]
+      // console.table({ color: color, resource: resource })
+
+      var j
+      if (color.length > 1) {
+        color = color === "blue" ? "#1e477b" : color === "green" ? "rgb(77,157,76)" : color
+      }
+
+      j = [
         {
           Empresa: 1,
           Unidade: 49,
@@ -9142,6 +9170,8 @@
           Valor_provisionado_anterior: 40.91
         }
       ];
+
+
       $(function () {
         var derivers = $.pivotUtilities.derivers;
 
@@ -9151,308 +9181,325 @@
           $.pivotUtilities.d3_renderers,
           $.pivotUtilities.export_renderers
         );
+        resource = "";
+        if (resource.length > 1) {
+          $.getJSON(resource).then(function (x) {
+            j = x
+            $("#output").pivotUI(j, {
+              renderers: renderers
+            });
+            render()
+          })
 
-        // $.getJSON("func.json", function(mps) {
-        $("#output").pivotUI(j, {
-          renderers: renderers
-        });
-      });
-
-      $("#exportPdf").click(function (event) {
-        var myWindow = window.open("", "", "width: 100%, height: 700px");
-
-        myWindow.document.write('<link rel="stylesheet" type="text/css" href="pivot.css" />');
-        myWindow.document.write('<style>table.pvtTable tr td, table.pvtTable tr th, table.pvtTable tr th {border: 1px solid black;}</style>');
-        myWindow.document.write($('.pvtRendererArea').html());
-        myWindow.document.onload = setTimeout(function () { myWindow.window.print() }, 2000)
-
-      })
-
-
-      $("#export").click(function (event) {
-
-        $('.pvtRenderer').val("Table").change();
-
-        while (endOfTheRow.length > 0) {
-          endOfTheRow.pop();
-        }
-        while (endOfTheCol.length > 0) {
-          endOfTheCol.pop();
-        }
-        theGrandTotal = 0.0;
-        if ($('pvtTotalcolTotal').length > 0) {
-          endOfTheRow.push('Total');
-
-          $('tdpvtTotalrowTotal').each(function (index) {
-            endOfTheRow.push($(this).text());
+        } else {
+          $("#output").pivotUI(j, {
+            renderers: renderers
           });
 
-          endOfTheCol.push('Total');
-
-          $('pvtTotalcolTotal').each(function (index) {
-            endOfTheCol.push($(this).text());
-          });
+          render()
         }
 
-        theGrandTotal = $('td.pvtGrandTotal').text();
 
-        $.when($('.pvtRenderer').val("TSV Export").change()).done(function () {
-          setTimeout(function () {
-            var data = $('textarea');
+      });
+
+      function render() {
+        $("#exportPdf").click(function (event) {
+          var myWindow = window.open("", "", "width: 100%, height: 700px");
+
+          myWindow.document.write('<link rel="stylesheet" type="text/css" href="pivot.css" />');
+          myWindow.document.write('<style>table.pvtTable tr td, table.pvtTable tr th, table.pvtTable tr th {border: 1px solid black;}</style>');
+          myWindow.document.write($('.pvtRendererArea').html());
+          myWindow.document.onload = setTimeout(function () { myWindow.window.print() }, 2000)
+
+        })
+
+
+        $("#export").click(function (event) {
+
+          $('.pvtRenderer').val("Table").change();
+
+          while (endOfTheRow.length > 0) {
+            endOfTheRow.pop();
+          }
+          while (endOfTheCol.length > 0) {
+            endOfTheCol.pop();
+          }
+          theGrandTotal = 0.0;
+          if ($('pvtTotalcolTotal').length > 0) {
+            endOfTheRow.push('Total');
+
+            $('tdpvtTotalrowTotal').each(function (index) {
+              endOfTheRow.push($(this).text());
+            });
+
+            endOfTheCol.push('Total');
+
+            $('pvtTotalcolTotal').each(function (index) {
+              endOfTheCol.push($(this).text());
+            });
+          }
+
+          theGrandTotal = $('td.pvtGrandTotal').text();
+
+          $.when($('.pvtRenderer').val("TSV Export").change()).done(function () {
+            setTimeout(function () {
+              var data = $('textarea');
 
 
 
-            if (window.navigator.msSaveBlob) { // IE
-              var blob = new Blob([data.text()], { type: "text/csv;charset=utf-8" });
-              window.navigator.msSaveOrOpenBlob(blob, 'tabela.csv')
-            } else {
-              var el = document.createElement('a');
-              el.setAttribute("download", "Tabela.csv");
-              el.setAttribute("href", "data:text/csv;charset=utf-8," + encodeURIComponent(data.text()));
-              el.click();
-            }
+              if (window.navigator.msSaveBlob) { // IE
+                var blob = new Blob([data.text()], { type: "text/csv;charset=utf-8" });
+                window.navigator.msSaveOrOpenBlob(blob, 'tabela.csv')
+              } else {
+                var el = document.createElement('a');
+                el.setAttribute("download", "Tabela.csv");
+                el.setAttribute("href", "data:text/csv;charset=utf-8," + encodeURIComponent(data.text()));
+                el.click();
+              }
 
-            $('.pvtRenderer').val("Table").change();
-          }, 2000)
+              $('.pvtRenderer').val("Table").change();
+            }, 2000)
+          });
+
+
+
+
+
+        });
+
+        $('.pvtRenderer').change(function () {
+          console.log($('select.pvtRenderer').html());
+          console.log($('.pvtRenderer').val());
+          if ($('.pvtRenderer').val() === 'TSV Export') {
+            // console.log('okokokokokokok');
+          }
+        });
+
+
+        $('#backtohome').click(function () {
+          $('#output').animate({ scrollTop: 0 }, 'slow');
+          $('#output').animate({ scrollLeft: 0 }, 'slow');
+        });
+
+        $('#backtotop').click(function () {
+          $('#output').animate({ scrollTop: 0 }, 'slow');
+        });
+
+        $('#backtodown').click(function () {
+          $('#output').animate({ scrollTop: 100000 }, 'slow');
+        });
+
+        $('#backtoleft').click(function () {
+          $('#output').animate({ scrollLeft: 0 }, 'slow');
+        });
+
+        $('#backtoright').click(function () {
+          $('#output').animate({ scrollLeft: 100000 }, 'slow');
         });
 
 
 
+        $.when($('#output').ready()).then(function () {
 
+          //  $('tdpvtAxisContainerpvtUnusedpvtUiCellpvtHorizList.ui-sortable').css('height','80px');
+          // $('.pivotTable').ready(function(){
 
-      });
+          //   $('.pivotTable').fadeIn('slow');
+          // });
+          $('td.pvtAxisContainer.pvtUnused.pvtUiCell.pvtHorizList.ui-sortable').hide();
+          $('.pvtAxisContainer.pvtHorizList.pvtCols.pvtUiCell.ui-sortable').hide();
+          $('.pvtAxisContainer.pvtRows.pvtUiCell.ui-sortable').hide();
+          $('.pvtAxisContainer.pvtRows.pvtUiCell.ui-sortable').hide();
+          $('.pvtVals.pvtUiCell').hide();
+          $('td.pvtUiCell').hide();
 
-      $('.pvtRenderer').change(function () {
-        console.log($('select.pvtRenderer').html());
-        console.log($('.pvtRenderer').val());
-        if ($('.pvtRenderer').val() === 'TSV Export') {
-          // console.log('okokokokokokok');
-        }
-      });
+          $('td.pvtAxisContainer.pvtUnused.pvtUiCell.pvtHorizList.ui-sortable').fadeIn(2000);
+          $('.pvtAxisContainer.pvtHorizList.pvtCols.pvtUiCell.ui-sortable').fadeIn(3000);
+          $('.pvtAxisContainer.pvtRows.pvtUiCell.ui-sortable').fadeIn(4000);
+          $('.pvtAxisContainer.pvtRows.pvtUiCell.ui-sortable').fadeIn(4000);
+          $('.pvtVals.pvtUiCell').fadeIn(3000);
+          $('td.pvtUiCell').fadeIn(2000);
 
+          // 'border-bottom-left-radius': '10px',
+          //   'border-bottom-right-radius': '10px'
 
-      $('#backtohome').click(function () {
-        $('#output').animate({ scrollTop: 0 }, 'slow');
-        $('#output').animate({ scrollLeft: 0 }, 'slow');
-      });
+          //$('td.pvtAxisContainer.pvtUnused.pvtUiCell.pvtHorizList.ui-sortable').css()
 
-      $('#backtotop').click(function () {
-        $('#output').animate({ scrollTop: 0 }, 'slow');
-      });
-
-      $('#backtodown').click(function () {
-        $('#output').animate({ scrollTop: 100000 }, 'slow');
-      });
-
-      $('#backtoleft').click(function () {
-        $('#output').animate({ scrollLeft: 0 }, 'slow');
-      });
-
-      $('#backtoright').click(function () {
-        $('#output').animate({ scrollLeft: 100000 }, 'slow');
-      });
-
-
-
-      $.when($('#output').ready()).then(function () {
-
-        //  $('tdpvtAxisContainerpvtUnusedpvtUiCellpvtHorizList.ui-sortable').css('height','80px');
-        // $('.pivotTable').ready(function(){
-
-        //   $('.pivotTable').fadeIn('slow');
-        // });
-        $('td.pvtAxisContainer.pvtUnused.pvtUiCell.pvtHorizList.ui-sortable').hide();
-        $('.pvtAxisContainer.pvtHorizList.pvtCols.pvtUiCell.ui-sortable').hide();
-        $('.pvtAxisContainer.pvtRows.pvtUiCell.ui-sortable').hide();
-        $('.pvtAxisContainer.pvtRows.pvtUiCell.ui-sortable').hide();
-        $('.pvtVals.pvtUiCell').hide();
-        $('td.pvtUiCell').hide();
-
-        $('td.pvtAxisContainer.pvtUnused.pvtUiCell.pvtHorizList.ui-sortable').fadeIn(2000);
-        $('.pvtAxisContainer.pvtHorizList.pvtCols.pvtUiCell.ui-sortable').fadeIn(3000);
-        $('.pvtAxisContainer.pvtRows.pvtUiCell.ui-sortable').fadeIn(4000);
-        $('.pvtAxisContainer.pvtRows.pvtUiCell.ui-sortable').fadeIn(4000);
-        $('.pvtVals.pvtUiCell').fadeIn(3000);
-        $('td.pvtUiCell').fadeIn(2000);
-
-        // 'border-bottom-left-radius': '10px',
-        //   'border-bottom-right-radius': '10px'
-
-        //$('td.pvtAxisContainer.pvtUnused.pvtUiCell.pvtHorizList.ui-sortable').css()
-
-        $('td.pvtAxisContainer.pvtUnused.pvtUiCell.pvtHorizList.ui-sortable').prepend(
-          $('<div id="cabCampos">').text(' Campos').
-            css(
-              {
-                'height': '42px',
-                'width': '100%+7px',
-                'color': 'white',
-                'background-color': '#6c7ae0',
-                'padding-left': '25px',
-                'padding-top': '8px',
-                'margin': '-5px',
-                'margin-bottom': '25px',
-                'margin-top': '-47px',
-                'font-size': '18px',
-
-                'border-bottom': '0px',
-                'border-top-left-radius': '10px',
-                'border-top-right-radius': '10px'
-              }));
-
-        $('.pvtAxisContainer.pvtHorizList.pvtCols.pvtUiCell.ui-sortable').prepend(
-          $('<div id="cabCols">').text(' Colunas').
-            css(
-              {
-                'height': '42px',
-                'width': '100%+7px',
-                'color': 'white',
-                'background-color': '#6c7ae0',
-                'padding-left': '25px',
-                'padding-top': '8px',
-                'margin': '-6px',
-                'margin-bottom': '18px',
-                'margin-top': '-50px',
-                'font-size': '18px',
-                'border-bottom': '0px',
-                'border-top-left-radius': '10px',
-                'border-top-right-radius': '10px'
-              }));
-
-        $('.pvtFilterBox').prepend(
-          $('<div id="cabFil">').text(' Filtro').
-            css(
-              {
-                'height': '42px',
-                'width': '298px',
-                'color': 'white',
-                'background-color': 'green',
-                'padding-top': '8px',
-                'margin-left': '-20px',
-                'margin-bottom': '18px',
-                'margin-top': '-50px',
-                'font-size': '18px',
-                'border-bottom': '0px',
-                'border-top-left-radius': '10px',
-                'border-top-right-radius': '10px'
-              })
-
-        );
-        $('.pvtAxisContainer.pvtRows.pvtUiCell.ui-sortable').prepend(
-          $('<div id="cabRow">').text(' Linhas').
-            css(
-              {
-                'height': '42px',
-                'width': '100%+7px',
-                'color': 'white',
-                'background-color': '#6c7ae0',
-                'padding-left': '25px',
-                'padding-top': '8px',
-                'margin': '-6px',
-                'margin-bottom': '18px',
-                'margin-top': '-50px',
-                'font-size': '18px',
-                'border-bottom': '0px',
-                'border-top-left-radius': '10px',
-                'border-top-right-radius': '10px'
-              }));
-
-
-        $('.pvtVals.pvtUiCell').prepend(
-          $('<div id="cabFun">').text(' Funções').
-            css(
-              {
-
-                'height': '42px',
-                'width': '100%+7px',
-                'color': 'white',
-                'background-color': '#6c7ae0',
-                'padding-left': '25px',
-                'padding-top': '8px',
-                'margin': '-6px',
-                'margin-bottom': '18px',
-                'margin-top': '-34px',
-                'font-size': '18px',
-                'border-bottom': '0px',
-                'border-top-left-radius': '10px',
-                'border-top-right-radius': '10px',
-
-              }));
-
-        $('td.pvtUiCell').has('.pvtRenderer').append(
-          $('<div id="cabFun">').text('Tipo').
-            css(
-              {
-                'height': '42px',
-                'width': '100%+7px',
-                'color': 'white',
-                'background-color': '#6c7ae0',
-                'padding-left': '25px',
-                'padding-top': '8px',
-                'margin-left': '-6px',
-                'margin-right': '15px',
-                'margin-bottom': '0px',
-                'margin-top': '-30px',
-                'font-size': '18px',
-                'border-top-left-radius': '10px',
-                'border-top-right-radius': '10px',
-                'position': 'relative',
-                'margin-bottom': '32px'
-
-              })).append(
-                $('<div id="cabFun">').
-                  css(
-                    {
-                      'height': '75px',
-                      'width': '100%+7px',
-                      'color': 'white',
-                      'background-color': '#fff ',
-                      'padding-left': '25px',
-                      'margin-right': '15px',
-                      'padding-top': '20px',
-                      'margin-left': '-6px',
-                      'margin-bottom': '-12px',
-                      'margin-top': '-44px',
-                      'font-size': '18px',
-                      //'box-shadow': '1px 0px 8px #888888'
-                      'background-color': 'rgba(240,240,240,0.65)'
-                    }));
-        $('.pvtAxisContainer.pvtUnused.pvtUiCell.pvtVertList.ui-sortable').
-          css({
-            'padding-top': '20px',
-            'margin-top': '20px',
-            'min-width': '200px'
-
-          }).prepend(
-            $('<div id="cabFun">').text(' Campos').
+          $('td.pvtAxisContainer.pvtUnused.pvtUiCell.pvtHorizList.ui-sortable').prepend(
+            $('<div id="cabCampos">').text(' Campos').
               css(
                 {
                   'height': '42px',
                   'width': '100%+7px',
                   'color': 'white',
-                  'background-color': '#4d9d4c',
+                  'background-color': '#6c7ae0',
                   'padding-left': '25px',
-                  'padding-top': '-18px',
+                  'padding-top': '8px',
+                  'margin': '-5px',
+                  'margin-bottom': '25px',
+                  'margin-top': '-47px',
+                  'font-size': '18px',
+
+                  'border-bottom': '0px',
+                  'border-top-left-radius': '10px',
+                  'border-top-right-radius': '10px'
+                }));
+
+          $('.pvtAxisContainer.pvtHorizList.pvtCols.pvtUiCell.ui-sortable').prepend(
+            $('<div id="cabCols">').text(' Colunas').
+              css(
+                {
+                  'height': '42px',
+                  'width': '100%+7px',
+                  'color': 'white',
+                  'background-color': '#6c7ae0',
+                  'padding-left': '25px',
+                  'padding-top': '8px',
                   'margin': '-6px',
                   'margin-bottom': '18px',
-                  'margin-top': '-5px',
+                  'margin-top': '-50px',
+                  'font-size': '18px',
+                  'border-bottom': '0px',
+                  'border-top-left-radius': '10px',
+                  'border-top-right-radius': '10px'
+                }));
+
+          $('.pvtFilterBox').prepend(
+            $('<div id="cabFil">').text(' Filtro').
+              css(
+                {
+                  'height': '42px',
+                  'width': '298px',
+                  'color': 'white',
+                  'background-color': 'green',
+                  'padding-top': '8px',
+                  'margin-left': '-20px',
+                  'margin-bottom': '18px',
+                  'margin-top': '-50px',
+                  'font-size': '18px',
+                  'border-bottom': '0px',
+                  'border-top-left-radius': '10px',
+                  'border-top-right-radius': '10px'
+                })
+
+          );
+          $('.pvtAxisContainer.pvtRows.pvtUiCell.ui-sortable').prepend(
+            $('<div id="cabRow">').text(' Linhas').
+              css(
+                {
+                  'height': '42px',
+                  'width': '100%+7px',
+                  'color': 'white',
+                  'background-color': '#6c7ae0',
+                  'padding-left': '25px',
+                  'padding-top': '8px',
+                  'margin': '-6px',
+                  'margin-bottom': '18px',
+                  'margin-top': '-50px',
+                  'font-size': '18px',
+                  'border-bottom': '0px',
+                  'border-top-left-radius': '10px',
+                  'border-top-right-radius': '10px'
+                }));
+
+
+          $('.pvtVals.pvtUiCell').prepend(
+            $('<div id="cabFun">').text(' Funções').
+              css(
+                {
+
+                  'height': '42px',
+                  'width': '100%+7px',
+                  'color': 'white',
+                  'background-color': '#6c7ae0',
+                  'padding-left': '25px',
+                  'padding-top': '8px',
+                  'margin': '-6px',
+                  'margin-bottom': '18px',
+                  'margin-top': '-34px',
                   'font-size': '18px',
                   'border-bottom': '0px',
                   'border-top-left-radius': '10px',
                   'border-top-right-radius': '10px',
 
                 }));
-        // $('.pvtVals.pvtUiCell').css({
 
-        //   "box-shadow": "5px 10px 18px #888888",
-        // })
+          $('td.pvtUiCell').has('.pvtRenderer').append(
+            $('<div id="cabFun">').text('Tipo').
+              css(
+                {
+                  'height': '42px',
+                  'width': '100%+7px',
+                  'color': 'white',
+                  'background-color': '#6c7ae0',
+                  'padding-left': '25px',
+                  'padding-top': '8px',
+                  'margin-left': '-6px',
+                  'margin-right': '15px',
+                  'margin-bottom': '0px',
+                  'margin-top': '-30px',
+                  'font-size': '18px',
+                  'border-top-left-radius': '10px',
+                  'border-top-right-radius': '10px',
+                  'position': 'relative',
+                  'margin-bottom': '32px'
 
-        $('option[value="TSV Export"]').hide();
+                })).append(
+                  $('<div id="cabFun">').
+                    css(
+                      {
+                        'height': '75px',
+                        'width': '100%+7px',
+                        'color': 'white',
+                        'background-color': '#fff ',
+                        'padding-left': '25px',
+                        'margin-right': '15px',
+                        'padding-top': '20px',
+                        'margin-left': '-6px',
+                        'margin-bottom': '-12px',
+                        'margin-top': '-44px',
+                        'font-size': '18px',
+                        //'box-shadow': '1px 0px 8px #888888'
+                        'background-color': 'rgba(240,240,240,0.65)'
+                      }));
+          $('.pvtAxisContainer.pvtUnused.pvtUiCell.pvtVertList.ui-sortable').
+            css({
+              'padding-top': '20px',
+              'margin-top': '20px',
+              'min-width': '200px'
 
-        $('.pvtRenderer, .pvtAggregator').css({
-          "box-shadow": "0.1px 0.1px 0.1px grey"
-        })
-      });
+            }).prepend(
+              $('<div id="cabFun">').text(' Campos').
+                css(
+                  {
+                    'height': '42px',
+                    'width': '100%+7px',
+                    'color': 'white',
+                    'background-color': '#4d9d4c',
+                    'padding-left': '25px',
+                    'padding-top': '-18px',
+                    'margin': '-6px',
+                    'margin-bottom': '18px',
+                    'margin-top': '-5px',
+                    'font-size': '18px',
+                    'border-bottom': '0px',
+                    'border-top-left-radius': '10px',
+                    'border-top-right-radius': '10px',
+
+                  }));
+          // $('.pvtVals.pvtUiCell').css({
+
+          //   "box-shadow": "5px 10px 18px #888888",
+          // })
+
+          $('option[value="TSV Export"]').hide();
+
+          $('.pvtRenderer, .pvtAggregator').css({
+            "box-shadow": "0.1px 0.1px 0.1px grey"
+          })
+        });
+      }
+
     });
 
 
