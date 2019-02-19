@@ -57,7 +57,7 @@
         w = "testesplitsearch.html?resource=https://jsonplaceholder.typicode.com/todos&color=blue";
         w = "?" + w.split("?")[1]
       } else
-        w = decodeURI(w)
+        w = escape(w)
       var colorIndex = w.indexOf('?color=');
       var sourceIndex = w.indexOf('?resource=');
 
@@ -9189,8 +9189,8 @@
           $.pivotUtilities.d3_renderers,
           $.pivotUtilities.export_renderers
         );
-        // resource = "";
-        j = [
+        //resource = "";
+        a = [
           {
             "userId": 1,
             "id": 1,
