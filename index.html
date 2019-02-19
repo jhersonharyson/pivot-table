@@ -67,7 +67,7 @@
         url: w,
       }
 
-      if (colorIndex > 0) {
+      if (colorIndex >= 0) {
         color = w.substring(w.indexOf('?color=') + 1, w.indexOf('&') > 0 ? w.indexOf('&') + 1 : w.length + 1).substring(1)
         resource = w.substring(w.indexOf('&') > 0 ? w.indexOf('&') + 1 : w.length + 1).substring(1)
         params = {
@@ -77,7 +77,7 @@
         }
       }
 
-      else if (sourceIndex > 0) {
+      else if (sourceIndex >= 0) {
         resource = w.substring(w.indexOf('?resource=') + 1, w.indexOf('&') > 0 ? w.indexOf('&') + 1 : w.length + 1).substring(1)
         color = w.substring(w.indexOf('&') > 0 ? w.indexOf('&') + 1 : w.length + 1).substring(1)
         params = {
@@ -91,7 +91,7 @@
       if (color)
         color = color.split("=")[1]
       if (params.resource)
-        resource = params.resource.split("=")[1]
+        resource = params.resource.split("=")[1].replace('&', '')
       // console.table({ color: color, resource: resource })
 
       var j
