@@ -61,7 +61,7 @@
 
       console.log({ colorIndex: colorIndex, sourceIndex: sourceIndex });
 
-      var color, params;
+      var color, params, resource;
 
       params = {
         url: w,
@@ -90,8 +90,8 @@
       }
       if (color)
         color = color.split("=")[1]
-      if (resource)
-        resource = resource.split("=")[1]
+      if (params.resource)
+        resource = params.resource.split("=")[1]
       // console.table({ color: color, resource: resource })
 
       var j
@@ -9250,7 +9250,9 @@
             "teste6": 1,
             "teste7": 1
           }];
-        if (resource) {
+        
+        
+          if (resource) {
           console.log(resource)
           var ajax = new XMLHttpRequest();
           ajax.open("GET", resource, true);
