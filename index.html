@@ -9257,6 +9257,7 @@
 
         if (resource) {
           console.log(resource)
+          
           var ajax = new XMLHttpRequest();
           ajax.open("GET", resource, true);
           // Envia a requisição
@@ -9274,7 +9275,8 @@
               $("#output").pivotUI(j, {
                 renderers: renderers
               });
-              when(render())
+              setTimeout(function(){
+              when(render()); alert('time')}, 10000)
       
             }
           }
@@ -9395,7 +9397,7 @@
 
       function when(callback) {
         $.when($('#output').ready()).then(function () {
-
+          alert('ASDASD')
           //  $('tdpvtAxisContainerpvtUnusedpvtUiCellpvtHorizList.ui-sortable').css('height','80px');
           // $('.pivotTable').ready(function(){
 
@@ -9582,6 +9584,8 @@
                     'border-top-right-radius': '10px',
 
                   }));
+
+
           // $('.pvtVals.pvtUiCell').css({
 
           //   "box-shadow": "5px 10px 18px #888888",
