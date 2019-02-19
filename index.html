@@ -98,9 +98,10 @@
       // console.table({ color: color, resource: resource })
 
       var j
-
-      color = color === "blue" ? "#1e477b" : color === "green" ? "rgb(77,157,76)" : color
-
+      if (color.length > 1)
+        color = color === "blue" || color === "blue&" ? "#1e477b" : color === "green" || color === "green&" ? "rgb(77,157,76)" : color.replace("&","")
+      else
+        color = "#1e477b"
 
       j = [
         {
@@ -9397,7 +9398,7 @@
 
       function when(callback) {
         $.when($('#output').ready()).then(function () {
-          alert('ASDASD')
+
           //  $('tdpvtAxisContainerpvtUnusedpvtUiCellpvtHorizList.ui-sortable').css('height','80px');
           // $('.pivotTable').ready(function(){
 
@@ -9429,7 +9430,7 @@
                   'height': '42px',
                   'width': '100%+7px',
                   'color': 'white',
-                  'background-color': color.length > 1 ? color.replace('&','') : "#1e477b",
+                  'background-color': color.length > 1 ? color.replace('&', '') : "#1e477b",
                   'padding-left': '25px',
                   'padding-top': '8px',
                   'margin': '-5px',
@@ -9449,7 +9450,7 @@
                   'height': '42px',
                   'width': '100%+7px',
                   'color': 'white',
-                  'background-color': color.length > 1 ? color.replace('&','') : "#1e477b",
+                  'background-color': color.length > 1 ? color.replace('&', '') : "#1e477b",
                   'padding-left': '25px',
                   'padding-top': '8px',
                   'margin': '-6px',
@@ -9487,7 +9488,7 @@
                   'height': '42px',
                   'width': '100%+7px',
                   'color': 'white',
-                  'background-color': color.length > 1 ? color.replace('&','') : "#1e477b",
+                  'background-color': color.length > 1 ? color.replace('&', '') : "#1e477b",
                   'padding-left': '25px',
                   'padding-top': '8px',
                   'margin': '-6px',
@@ -9508,7 +9509,7 @@
                   'height': '42px',
                   'width': '100%+7px',
                   'color': 'white',
-                  'background-color': color.length > 1 ? color.replace('&','') : "#1e477b",
+                  'background-color': color.length > 1 ? color.replace('&', '') : "#1e477b",
                   'padding-left': '25px',
                   'padding-top': '8px',
                   'margin': '-6px',
@@ -9528,7 +9529,7 @@
                   'height': '42px',
                   'width': '100%+7px',
                   'color': 'white',
-                  'background-color': color.length > 1 ? color.replace('&','') : "#1e477b",
+                  'background-color': color.length > 1 ? color.replace('&', '') : "#1e477b",
                   'padding-left': '25px',
                   'padding-top': '8px',
                   'margin-left': '-6px',
