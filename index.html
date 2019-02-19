@@ -44,7 +44,7 @@
     $(function () {
 
 
-      var w = window.location.search.substr(1)
+      var w = window.location.search.substr(0)
       console.log(w)
 
       endOfTheRow = [];
@@ -54,8 +54,8 @@
       //color=blue&resource=http://192.168.10.0:8080/api/json
       if (!w)
         w = "testesplitsearch.html?resource=https://jsonplaceholder.typicode.com/todos&color=blue";
-      var colorIndex = w.substr(1).indexOf('color=');
-      var sourceIndex = w.substr(1).indexOf('resource=');
+      var colorIndex = w.substr(1).indexOf('?color=');
+      var sourceIndex = w.substr(1).indexOf('?resource=');
 
       console.log({colorIndex: colorIndex, sourceIndex: sourceIndex});
       
@@ -66,7 +66,7 @@
       }
 
       if (colorIndex > 0) {
-        color = w.substring(w.substr(1).indexOf('color=') + 1, w.substr(1).indexOf('&') > 0 ? w.substr(1).indexOf('&') + 1 : w.substr(1).length + 1).substring(1)
+        color = w.substring(w.substr(1).indexOf('?color=') + 1, w.substr(1).indexOf('&') > 0 ? w.substr(1).indexOf('&') + 1 : w.substr(1).length + 1).substring(1)
         resource = w.substring(w.substr(1).indexOf('&') > 0 ? w.substr(1).indexOf('&') + 1 : w.substr(1).length + 1).substring(1)
         params = {
           url: params.url,
@@ -76,7 +76,7 @@
       }
 
       else if (sourceIndex > 0) {
-        resource = w.substring(w.substr(1).indexOf('resource=') + 1, w.substr(1).indexOf('&') > 0 ? w.substr(1).indexOf('&') + 1 : w.substr(1).length + 1).substring(1)
+        resource = w.substring(w.substr(1).indexOf('?resource=') + 1, w.substr(1).indexOf('&') > 0 ? w.substr(1).indexOf('&') + 1 : w.substr(1).length + 1).substring(1)
         color = w.substring(w.substr(1).indexOf('&') > 0 ? w.substr(1).indexOf('&') + 1 : w.substr(1).length + 1).substring(1)
         params = {
           url: params.url,
