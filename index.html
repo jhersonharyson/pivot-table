@@ -9274,9 +9274,8 @@
               $("#output").pivotUI(j, {
                 renderers: renderers
               });
-              render()
-              // render()
-
+              when(render())
+      
             }
           }
 
@@ -9286,7 +9285,7 @@
             renderers: renderers
           });
 
-          render()
+          when(render())
 
         }
 
@@ -9391,6 +9390,10 @@
 
 
 
+
+      }
+
+      function when(callback) {
         $.when($('#output').ready()).then(function () {
 
           //  $('tdpvtAxisContainerpvtUnusedpvtUiCellpvtHorizList.ui-sortable').css('height','80px');
@@ -9589,9 +9592,10 @@
           $('.pvtRenderer, .pvtAggregator').css({
             "box-shadow": "0.1px 0.1px 0.1px grey"
           })
+
+          callback()
         });
       }
-
     });
 
 
