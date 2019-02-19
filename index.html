@@ -56,6 +56,9 @@
         w = "testesplitsearch.html?resource=https://jsonplaceholder.typicode.com/todos&color=blue";
       var colorIndex = w.substr(1).indexOf('?color=');
       var sourceIndex = w.substr(1).indexOf('?resource=');
+
+      console.log({colorIndex: colorIndex, sourceIndex: sourceIndex});
+      
       var color, params;
 
       params = {
