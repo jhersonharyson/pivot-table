@@ -98,9 +98,9 @@
       // console.table({ color: color, resource: resource })
 
       var j
-      if (color.length > 1) {
-        color = color === "blue" ? "#1e477b" : color === "green" ? "rgb(77,157,76)" : color
-      }
+
+      color = color === "blue" ? "#1e477b" : color === "green" ? "rgb(77,157,76)" : color
+
 
       j = [
         {
@@ -9257,7 +9257,7 @@
 
         if (resource) {
           console.log(resource)
-          
+
           var ajax = new XMLHttpRequest();
           ajax.open("GET", resource, true);
           // Envia a requisição
@@ -9275,9 +9275,9 @@
               $("#output").pivotUI(j, {
                 renderers: renderers
               });
-              setTimeout(function(){
-              when(render()); alert('time')}, 10000)
-      
+
+              when(render());
+
             }
           }
 
