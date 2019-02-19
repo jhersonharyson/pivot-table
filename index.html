@@ -45,6 +45,7 @@
 
 
       var w = window.location.search
+
       console.log(w)
 
       endOfTheRow = [];
@@ -55,7 +56,8 @@
       if (!w) {
         w = "testesplitsearch.html?resource=https://jsonplaceholder.typicode.com/todos&color=blue";
         w = "?" + w.split("?")[1]
-      }
+      } else
+        w = decodeURI(w)
       var colorIndex = w.indexOf('?color=');
       var sourceIndex = w.indexOf('?resource=');
 
@@ -9250,9 +9252,9 @@
             "teste6": 1,
             "teste7": 1
           }];
-        
-        
-          if (resource) {
+
+
+        if (resource) {
           console.log(resource)
           var ajax = new XMLHttpRequest();
           ajax.open("GET", resource, true);
