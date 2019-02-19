@@ -52,22 +52,24 @@
       theGrandTotal = 0.0;
 
       //color=blue&resource=http://192.168.10.0:8080/api/json
-      if (!w)
+      if (!w) {
         w = "testesplitsearch.html?resource=https://jsonplaceholder.typicode.com/todos&color=blue";
-      var colorIndex = w.substr(1).indexOf('?color=');
-      var sourceIndex = w.substr(1).indexOf('?resource=');
+        w = "?" + w.split("?")[1]
+      }
+      var colorIndex = w.indexOf('?color=');
+      var sourceIndex = w.indexOf('?resource=');
 
-      console.log({colorIndex: colorIndex, sourceIndex: sourceIndex});
-      
+      console.log({ colorIndex: colorIndex, sourceIndex: sourceIndex });
+
       var color, params;
 
       params = {
-        url: w.substr(1),
+        url: w,
       }
 
       if (colorIndex > 0) {
-        color = w.substring(w.substr(1).indexOf('?color=') + 1, w.substr(1).indexOf('&') > 0 ? w.substr(1).indexOf('&') + 1 : w.substr(1).length + 1).substring(1)
-        resource = w.substring(w.substr(1).indexOf('&') > 0 ? w.substr(1).indexOf('&') + 1 : w.substr(1).length + 1).substring(1)
+        color = w.substring(w.indexOf('?color=') + 1, w.indexOf('&') > 0 ? w.indexOf('&') + 1 : w.length + 1).substring(1)
+        resource = w.substring(w.indexOf('&') > 0 ? w.indexOf('&') + 1 : w.length + 1).substring(1)
         params = {
           url: params.url,
           color: color,
@@ -76,8 +78,8 @@
       }
 
       else if (sourceIndex > 0) {
-        resource = w.substring(w.substr(1).indexOf('?resource=') + 1, w.substr(1).indexOf('&') > 0 ? w.substr(1).indexOf('&') + 1 : w.substr(1).length + 1).substring(1)
-        color = w.substring(w.substr(1).indexOf('&') > 0 ? w.substr(1).indexOf('&') + 1 : w.substr(1).length + 1).substring(1)
+        resource = w.substring(w.indexOf('?resource=') + 1, w.indexOf('&') > 0 ? w.indexOf('&') + 1 : w.length + 1).substring(1)
+        color = w.substring(w.indexOf('&') > 0 ? w.indexOf('&') + 1 : w.length + 1).substring(1)
         params = {
           url: params.url,
           color: color,
@@ -86,8 +88,10 @@
       } else {
         alert('erro ao carregar os parametros')
       }
-      color = color.split("=")[1]
-      resource = resource.split("=")[1]
+      if (color)
+        color = color.split("=")[1]
+      if (resource)
+        resource = resource.split("=")[1]
       // console.table({ color: color, resource: resource })
 
       var j
