@@ -57,7 +57,7 @@
         w = "testesplitsearch.html?resource=https://jsonplaceholder.typicode.com/todos&color=blue";
         w = "?" + w.split("?")[1]
       } else {
-        w = w.split('%3D').join("=").split('%3A').join(':').split('%3F').join('?'); console.log(w);
+        w = w.split('%3D').join("=").split('%3A').join(':').split('%3F').join('?').split('%2F').join('/'); console.log(w);
       }
       var colorIndex = w.indexOf('?color=');
       var sourceIndex = w.indexOf('?resource=');
