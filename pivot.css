@@ -894,6 +894,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', e
 }
 
 
-td.pvtAxisContainer.pvtUnused.pvtUiCell.pvtHorizList.ui-sortable{
-    
+#output > table > tr:nth-child(2) > td.pvtAxisContainer.pvtRows.pvtUiCell.ui-sortable{
+    margin-left: 5px !important;
 }
