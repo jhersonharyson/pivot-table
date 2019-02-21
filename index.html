@@ -9191,7 +9191,7 @@
           $.pivotUtilities.d3_renderers,
           $.pivotUtilities.export_renderers
         );
-        //resource = "";
+        // resource = "";
         a = [
           {
             "userId": 1,
@@ -9276,9 +9276,7 @@
               $("#output").pivotUI(j, {
                 renderers: renderers
               });
-
               when(render());
-
             }
           }
 
@@ -9292,8 +9290,6 @@
 
         }
 
-
-
       });
 
       function render() {
@@ -9303,7 +9299,7 @@
           myWindow.document.write('<link rel="stylesheet" type="text/css" href="pivot.css" />');
           myWindow.document.write('<style>table.pvtTable tr td, table.pvtTable tr th, table.pvtTable tr th {border: 1px solid black;}</style>');
           myWindow.document.write($('.pvtRendererArea').html());
-          myWindow.document.onload = setTimeout(function () { myWindow.window.print() }, 2000)
+          myWindow.document.onloadend = setTimeout(function () { myWindow.window.print() }, 2000)
 
         })
 
@@ -9431,11 +9427,11 @@
                   'width': '100%+7px',
                   'color': 'white',
                   'background-color': color.length > 1 ? color.replace('&', '') : "#1e477b",
-                  'padding-left': '25px',
-                  'padding-top': '8px',
+                  'padding-left': '20px', // 'padding-left': '25px',
+                  'padding-top': '10px', //  'padding-top': '8px',
                   'margin': '-5px',
                   'margin-bottom': '25px',
-                  'margin-top': '-47px',
+                  'margin-top': '-40px', //'margin-top': '-47px',
                   'font-size': '14px',
 
                   'border-bottom': '0px',
@@ -9451,8 +9447,8 @@
                   'width': '100%+7px',
                   'color': 'white',
                   'background-color': color.length > 1 ? color.replace('&', '') : "#1e477b",
-                  'padding-left': '25px',
-                  'padding-top': '8px',
+                  'padding-left': '20px', // 'padding-left': '25px',
+                  'padding-top': '10px', //  'padding-top': '8px',
                   'margin': '-6px',
                   'margin-bottom': '18px',
                   'margin-top': '-50px',
@@ -9470,8 +9466,8 @@
                   'width': '298px',
                   'color': 'white',
                   'background-color': 'green',
-                  'padding-top': '8px',
-                  'margin-left': '-20px',
+                  'padding-top': '10px', // 'padding-top': '8px',
+                  'margin-left': '-20px', // 
                   'margin-bottom': '18px',
                   'margin-top': '-50px',
                   'font-size': '14px',
@@ -9489,8 +9485,8 @@
                   'width': '100%+7px',
                   'color': 'white',
                   'background-color': color.length > 1 ? color.replace('&', '') : "#1e477b",
-                  'padding-left': '25px',
-                  'padding-top': '8px',
+                  'padding-left': '20px',
+                  'padding-top': '10px',
                   'margin': '-6px',
                   'margin-bottom': '18px',
                   'margin-top': '-50px',
@@ -9510,8 +9506,8 @@
                   'width': '100%+7px',
                   'color': 'white',
                   'background-color': color.length > 1 ? color.replace('&', '') : "#1e477b",
-                  'padding-left': '25px',
-                  'padding-top': '8px',
+                  'padding-left': '20px',
+                  'padding-top': '10px',
                   'margin': '-6px',
                   'margin-bottom': '18px',
                   'margin-top': '-34px',
@@ -9530,8 +9526,8 @@
                   'width': '100%+7px',
                   'color': 'white',
                   'background-color': color.length > 1 ? color.replace('&', '') : "#1e477b",
-                  'padding-left': '25px',
-                  'padding-top': '8px',
+                  'padding-left': '20px',
+                  'padding-top': '10px',
                   'margin-left': '-6px',
                   'margin-right': '15px',
                   'margin-bottom': '0px',
@@ -9574,8 +9570,8 @@
                     'width': '100%+7px',
                     'color': 'white',
                     'background-color': '#4d9d4c',
-                    'padding-left': '25px',
-                    'padding-top': '-18px',
+                    'padding-left': '20px',
+                    'padding-top': '10px',
                     'margin': '-6px',
                     'margin-bottom': '18px',
                     'margin-top': '-5px',
