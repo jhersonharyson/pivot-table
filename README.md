@@ -80,3 +80,9 @@ function(){
                })
            }
 ```
+
+# Usando atraves de um iframe
+```javascript
+ <iframe src="https://jhersonharyson.github.io/pivot-table/?resource=https://jsonplaceholder.typicode.com/todos&color=blue" style="border:0px; width: 100%; min-height: 800px"></iframe>
+```
+* o `src` recebe como query 2 parametros `resource` (url de obtenção de dados [.json]) e `color` onde os parametros `blue` e `green` referen-se respectivamente as cores `rgb(30,71,123)` e `rgb(77,157,76)` qualquer outra cor pode ser passada como parâmetro utilizando o padão `rgb()` ou `rgba()`
